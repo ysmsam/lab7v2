@@ -30,17 +30,17 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         UserService service = new UserService();
-        RoleService serviceRole = new RoleService();
+//        RoleService serviceRole = new RoleService();
         List<User> users = null;
         
         try {
             
             users = service.getAll();
-            List<Role> roles = serviceRole.getAll();
+//            List<Role> roles = serviceRole.getAll();
             
             request.setAttribute("users", users);
             
-//            this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,7 +71,7 @@ public class UserServlet extends HttpServlet {
 //            //request.setAttribute("users", users);
 //        }
         
-        this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+//        this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
 //        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         
     }
