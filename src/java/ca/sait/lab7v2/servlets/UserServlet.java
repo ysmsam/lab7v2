@@ -1,6 +1,8 @@
 package ca.sait.lab7v2.servlets;
 
+import ca.sait.lab7v2.models.Role;
 import ca.sait.lab7v2.models.User;
+import ca.sait.lab7v2.services.RoleService;
 import ca.sait.lab7v2.services.UserService;
 import java.io.IOException;
 import java.util.List;
@@ -27,31 +29,47 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UserService service = new UserService();
-        
-        String action = request.getParameter("action");
-        
-        if(action != null && action.equals("delete")){       
-            try {
-                String email = request.getParameter("email");
-                
-                boolean deleted = service.delete(email);
-                
-            } catch (Exception ex) {
-                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
+         UserService service = new UserService();
+        RoleService serviceRole = new RoleService();
+        List<User> users = null;
         try {
-            List<User> users = service.getAll();
+            users = service.getAll();
+            List<Role> roles = serviceRole.getAll();
             
             request.setAttribute("users", users);
             
-            this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+//            this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        String action = request.getParameter("action");
+        if (action != null && action.equals("delete")) {
+            try {
+                
+                String email = request.getParameter("email").replace(" ", "+");
+//                service.delete(email);
+                request.setAttribute("users", users);
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //request.setAttribute("users", users);
+        }
+        
+        action = request.getParameter("action");
+        if (action != null && action.equals("update")) {
+            try {
+                String email = request.getParameter("email").replace(" ", "+");
+
+                User user = service.get(email);
+                request.setAttribute("userEdit", user);
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            //request.setAttribute("users", users);
+        }
+        
+        this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         
     }
 
@@ -66,5 +84,52 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+                String email = request.getParameter("email");
+        UserService service = new UserService();
+        RoleService serviceRole = new RoleService();
+
+        String action = request.getParameter("action");
+        boolean active = request.getParameter("active") == "Y";
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+//        String password = request.getParameter("password");
+        String password = "password";
+        
+        String roleName= request.getParameter("roleName");
+//        int roleID = Integer.parseInt(request.getParameter("roleID"));
+        int roleID;
+//        Role role = new role(roleID,roleName);
+//
+        try {
+//            roleID = Integer.parseInt(request.getParameter("roleID"));
+            switch (action) {
+////                case "create":
+////                    service.insert(email, active, firstName, lastName, password, roleID);
+////                    break;
+////                case "update":
+////                    service.update(email, active, firstName, lastName, password, roleID);
+////                    break;
+                case "delete":
+                    service.delete(email);
+                    break;
+            }
+//            request.setAttribute("message", action);
+        } catch (Exception ex) {
+             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            request.setAttribute("message", "error");
+        }
+
+        try {
+            List<User> users = service.getAll();
+            
+            request.setAttribute("users", users);
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            request.setAttribute("message", "error");
+        }
+
+        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+        
     }
 }
