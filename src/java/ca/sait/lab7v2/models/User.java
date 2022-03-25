@@ -29,24 +29,34 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id
-    @Basic(optional = false)
+    @Basic
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
+    @Basic
     @Column(name = "active")
     private boolean active;
-    @Basic(optional = false)
+    @Basic
     @Column(name = "first_name")
     private String firstName;
-    @Basic(optional = false)
+    @Basic
     @Column(name = "last_name")
     private String lastName;
-    @Basic(optional = false)
+    @Basic
     @Column(name = "password")
     private String password;
     @JoinColumn(name = "role", referencedColumnName = "role_id")
     @ManyToOne(targetEntity = Role.class)
     private Role role;
+
+    private int roleID;
+
+    public int getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
+    }
 
     public User() {
     }
@@ -70,6 +80,15 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.password = password;
         this.role = role;
+    }
+    
+    public User(String email, boolean active, String firstName, String lastName, String password, int roleID) {
+        this.email = email;
+        this.active = active;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.roleID = roleID;
     }
 
     public String getEmail() {

@@ -26,11 +26,11 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    @Basic
     @Column(name = "role_id")
     private Integer roleId;
     
-    @Basic(optional = false)
+    @Basic
     @Column(name = "role_name")
     private String roleName;
     
