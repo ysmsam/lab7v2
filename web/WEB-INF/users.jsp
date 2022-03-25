@@ -38,7 +38,7 @@
                                     <td name="email">${user.email}</td>
                                     <td name="firstName">${user.firstName}</td>
                                     <td name="lastName">${user.lastName}</td>
-                                    <td name="role">${user.roleID}</td>
+                                    <td name="role">${user.role.roleName}</td>
                                     <td name="active">${user.active ? "Y" : "N"}</td>
                                     <td>
                                         <a href="user?action=update&amp;email=${user.email}">Edit</a>
@@ -50,15 +50,16 @@
                                 <form action="user" method="post">
                                     <table>
                                         <tr>
-                                            <td><input type="text" name="email">Email</td>
-                                            <td><input type="text" name="firstName">Fisrt name</td>
-                                            <td><input type="text" name="lastName">Last name</td>
-                                            <td><input type="text" name="roleID">Role</td>
-                                            <td><input type="text" name="active">Active</td>
+                                            <td><input type="text" name="newEmail">Email</td>
+                                            <td><input type="text" name="newFirstName">Fisrt name</td>
+                                            <td><input type="text" name="newLastName">Last name</td>
+                                            <td><input type="text" name="newRole">Role</td>
+                                            <td><input type="text" name="newActive">Active</td>
                                             <td>
-                                                <a href="user" name="action" value="create">Create</a>
-                                                <input type="hidden" name="action" value="create">
-                                                <input type="submit" value="Add">
+                                                <!--<a href="user" name="action" value="create">Create</a>-->
+                                                <!--<input type="hidden" name="action" value="create">-->
+                                                <!--<input type="submit" value="Add">-->
+                                                <input type="submit" name="action" value="create">
                                                 
                                             </td>
                                         </tr>
@@ -74,7 +75,7 @@
                 <span>${userEdit.email}</span>
                 <input type="text" name="firstName" value="${userEdit.firstName}">
                 <input type="text" name="lastName" value="${userEdit.lastName}">
-                <input type="text" name="roleID" value="${userEdit.roleID}">
+                <input type="text" name="roleID" value="${userEdit.role.roleId}">
                 <input type="text" name="active" value="${userEdit.active}">
 
                 <input type="hidden" name="action" value="update">

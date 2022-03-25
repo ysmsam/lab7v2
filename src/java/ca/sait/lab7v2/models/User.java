@@ -48,15 +48,15 @@ public class User implements Serializable {
     @ManyToOne(targetEntity = Role.class)
     private Role role;
 
-    private int roleID;
+//    private int roleID;
 
-    public int getRoleID() {
-        return roleID;
-    }
-
-    public void setRoleID(int roleID) {
-        this.roleID = roleID;
-    }
+//    public int getRoleID() {
+//        return roleID;
+//    }
+//
+//    public void setRoleID(int roleID) {
+//        this.roleID = roleID;
+//    }
 
     public User() {
     }
@@ -73,23 +73,23 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String email, boolean active, String firstName, String lastName, String password, Role role) {
+    public User(String email, boolean active, String firstName, String lastName, String password,int roleId) {
         this.email = email;
         this.active = active;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
-        this.role = role;
+        this.role = new Role(roleId);
     }
     
-    public User(String email, boolean active, String firstName, String lastName, String password, int roleID) {
-        this.email = email;
-        this.active = active;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.roleID = roleID;
-    }
+//    public User(String email, boolean active, String firstName, String lastName, String password, int roleID) {
+//        this.email = email;
+//        this.active = active;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.password = password;
+//        this.roleID = roleID;
+//    }
 
     public String getEmail() {
         return email;

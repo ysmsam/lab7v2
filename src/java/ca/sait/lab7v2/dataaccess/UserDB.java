@@ -10,7 +10,7 @@ public class UserDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            Query query = em.createNamedQuery("User.finaAll");
+            Query query = em.createNamedQuery("User.findAll");
             return query.getResultList();
         } finally {
             em.close();
@@ -82,7 +82,7 @@ public class UserDB {
                                         // if do not do merge, it will get error about "entity is not attach"
                                         //because it only has an email ( it is not refer any specific in the database)
                                         //if you have only email field, it will think it jsut have a record with only email column to fill in
-            em.merge(user);
+//            em.merge(user);
             
             /*soft delete
             Query query = em.createNamedQuery("User.softDelete", User.class);

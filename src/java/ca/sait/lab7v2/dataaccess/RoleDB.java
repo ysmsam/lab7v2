@@ -15,7 +15,7 @@ public class RoleDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
-            Query query = em.createNamedQuery("Role.finaAll");
+            Query query = em.createNamedQuery("Role.findAll");
             return query.getResultList();
         } finally {
             em.close();
