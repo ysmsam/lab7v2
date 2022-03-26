@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Administrater
+ * @author Sheng Ming Yan
  */
 @Entity
 @Table(name = "user")

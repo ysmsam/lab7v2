@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrater
+ * @author Sheng Ming Yan
  */
 @Entity
 @Table(name = "role")

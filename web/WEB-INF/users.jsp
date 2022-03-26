@@ -50,17 +50,14 @@
                                 <form action="user" method="post">
                                     <table>
                                         <tr>
-                                            <td><input type="text" name="newEmail">Email</td>
-                                            <td><input type="text" name="newFirstName">Fisrt name</td>
-                                            <td><input type="text" name="newLastName">Last name</td>
-                                            <td><input type="text" name="newRole">Role</td>
-                                            <td><input type="text" name="newActive">Active</td>
+                                            <td><input type="text" name="newEmail" placeholder="Email"></td>
+                                            <td><input type="text" name="newFirstName" placeholder="Fisrt name"></td>
+                                            <td><input type="text" name="newLastName" placeholder="Last name"></td>
+                                            <td><input type="text" name="newRole" placeholder="Role"></td>
+                                            <td><input type="text" name="newActive" placeholder="Active"></td>
                                             <td>
-                                                <!--<a href="user" name="action" value="create">Create</a>-->
-                                                <!--<input type="hidden" name="action" value="create">-->
-                                                <!--<input type="submit" value="Add">-->
-                                                <input type="submit" name="action" value="create">
-                                                
+                                                <input type="hidden" name="action" value="create">
+                                                <input type="submit" value="Add">
                                             </td>
                                         </tr>
                                     </table>
@@ -72,14 +69,21 @@
             <c:if test="${userEdit ne null}">
             <!--<h2>Edit Note</h2>-->
             <form action="user" method="post">
-                <span>${userEdit.email}</span>
-                <input type="text" name="firstName" value="${userEdit.firstName}">
-                <input type="text" name="lastName" value="${userEdit.lastName}">
-                <input type="text" name="roleID" value="${userEdit.role.roleId}">
-                <input type="text" name="active" value="${userEdit.active}">
+                 <table>
+                    <tr>
+                        <!--<td name="editEmail" value="${userEdit.email}">${userEdit.email}</td>-->
+                        <td><input type="text" name="editEmail" value="${userEdit.email}" readonly>Email</td>                        
+                        <td><input type="text" name="editFirstName" value="${userEdit.firstName}">Fisrt name</td>
+                        <td><input type="text" name="editLastName" value="${userEdit.lastName}">Last name</td>
+                        <td><input type="text" name="editRoleID" value="${userEdit.role.roleId}">Role</td>
+                        <td><input type="text" name="editActive" value="${userEdit.active}">Active</td>
+                        <td>
+                            <input type="hidden" name="action" value="update">
+                            <input type="submit" value="Save">
 
-                <input type="hidden" name="action" value="update">
-                <input type="submit" value="Save">
+                        </td>
+                    </tr>
+                </table>
             </form>
         </c:if>
                 </div>

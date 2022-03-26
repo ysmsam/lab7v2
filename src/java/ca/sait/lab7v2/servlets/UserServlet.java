@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Valued Customer
+ * @author Sheng Ming Yan
  */
 public class UserServlet extends HttpServlet {
     /**
@@ -31,7 +31,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
         UserService service = new UserService();
         RoleService serviceRole = new RoleService();
-        
+        User user;
         List<User> users = null;
         String action = request.getParameter("action");
         
@@ -46,25 +46,18 @@ public class UserServlet extends HttpServlet {
             }
         }
         
-//        action = request.getParameter("action");
-//        if (action != null && action.equals("update")) {
-//            try {
-//                String email = request.getParameter("email").replace(" ", "+");
-//                boolean active = request.getParameter("active") == "Y";
-//                String firstName = request.getParameter("firstName");
-//                String lastName = request.getParameter("lastName");
-//        //        String password = request.getParameter("password");
-//                String password="";
-//                int role=0;
-//
-//                 boolean updated = service.update(email, active, firstName, lastName, password, role);
-////                User user = service.get(email);
-//                request.setAttribute("userEdit", user);
-//            } catch (Exception ex) {
-//                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            //request.setAttribute("users", users);
-//        }
+        action = request.getParameter("action");
+        if (action != null && action.equals("update")) {
+            try {
+                String email = request.getParameter("email").replace(" ", "+");
+                user = service.get(email);
+                request.setAttribute("userEdit", user);
+//                String activeChar = user.getActive()==true ? "Y":"N";
+
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         try {
             
@@ -78,12 +71,7 @@ public class UserServlet extends HttpServlet {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-
-//        
-
-        
         this.getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
-//        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         
     }
 
@@ -99,24 +87,18 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String email = request.getParameter("email");
+        
         UserService service = new UserService();
         RoleService serviceRole = new RoleService();
+        
+        Role role = new Role();
+//        List<Role> roles = serviceRole.getAll();
 
         String action = request.getParameter("action");
-        boolean active = request.getParameter("active") == "Y";
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-//        String password = request.getParameter("password");
+
         String password = "password";
         
-        String roleName= request.getParameter("roleName");
-//        int roleID = Integer.parseInt(request.getParameter("roleID"));
-        int roleID;
-//        Role role = new role(roleID,roleName);
-        roleID = Integer.parseInt(request.getParameter("roleID"));
         try {
-            
             
             if(action != null && action.equals("create")){
                 String newEmail = request.getParameter("newEmail");
@@ -124,22 +106,18 @@ public class UserServlet extends HttpServlet {
                 String newFirstName = request.getParameter("newFirstName");
                 String newLastName = request.getParameter("newLastName");
                 int newRole = Integer.parseInt(request.getParameter("newRole"));
-//                User user = new User(newEmail, newActive, newFirstName, newLastName, password, newRole);
-//                boolean inserted = service.insert(user);
                 boolean inserted = service.insert(newEmail, newActive, newFirstName, newLastName, password, newRole);
             }
-//            switch (action) {
-//                case "create":
-//                    service.insert(email, active, firstName, lastName, password, roleID);
-//                    break;
-//                case "update":
-//                    service.update(email, active, firstName, lastName, password, roleID);
-//                    break;
-//                case "delete":
-//                    service.delete(email);
-//                    break;
-//            }
-//            request.setAttribute("message", action);
+            
+            if(action != null && action.equals("update")){
+                String editEmail = request.getParameter("editEmail");
+                boolean editActive = ("true".equals(request.getParameter("editActive")) || "Y".equals(request.getParameter("editActive")));
+                String editFirstName = request.getParameter("editFirstName");
+                String editLastName = request.getParameter("editLastName");
+                int editRoleID = Integer.parseInt(request.getParameter("editRoleID"));
+                boolean updated = service.update(editEmail, editActive, editFirstName, editLastName, password, editRoleID);
+            }
+
         } catch (Exception ex) {
              Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
 //            request.setAttribute("message", "error");
